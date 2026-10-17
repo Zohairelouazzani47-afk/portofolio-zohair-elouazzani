@@ -43,7 +43,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
@@ -57,6 +57,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
+            position: relative;
         }
 
         .logo {
@@ -68,6 +69,17 @@
 
         .logo span {
             color: var(--accent-red);
+        }
+
+        /* Bouton Menu Burger (caché sur PC) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 5px;
         }
 
         nav ul {
@@ -87,6 +99,7 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .nav-btn:hover {
@@ -283,6 +296,50 @@
         .contact-btn.phone-btn:hover {
             background: #334155;
         }
+
+        /* RESPONSIVE DESIGN POUR MOBILES */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            /* Afficher le bouton burger */
+            .menu-toggle {
+                display: block;
+            }
+
+            /* Adapter la liste du menu */
+            nav ul {
+                display: none; /* Masqué par défaut */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: var(--shadow-md);
+            }
+
+            /* Affichage lorsque le menu est ouvert */
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                text-align: center;
+                margin: 0.4rem 0;
+            }
+
+            .nav-btn {
+                width: 80%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -291,7 +348,11 @@
     <header>
         <nav>
             <div class="logo">MON <span>PORTFOLIO</span></div>
-            <ul>
+            
+            <!-- Bouton Burger Mobile -->
+            <button class="menu-toggle" id="mobile-menu" aria-label="Menu">☰</button>
+
+            <ul id="nav-list">
                 <li><a href="#accueil" class="nav-btn">Accueil</a></li>
                 <li><a href="#projet" class="nav-btn">Le Projet</a></li>
                 <li><a href="#fonctionnement" class="nav-btn">Fonctionnement</a></li>
@@ -327,7 +388,7 @@
                 <div class="card">
                     <h3>Ma mission</h3>
                     <p>Au sein d'une chaîne miniaturisée composée de plusieurs stations, j'ai automatisé la <strong>Station V.I.T (Vérification, Inspection et Tri)</strong>.</p>
-                    <p>J'ai assuré la rédaction du cahier des charges, l'écriture du Grafcet de contrôle, sa programmation logicielle ainsi que la supervision sur écran tactile.</p>
+                    <p>J'ai, en collaboration avec mon binôme, assuré la rédaction du cahier des charges, l'écriture du Grafcet de contrôle, sa programmation logicielle ainsi que la supervision sur écran tactile.</p>
                 </div>
             </div>
         </section>
@@ -387,7 +448,7 @@
             <h2>Contact</h2>
             <p>Vous souhaitez échanger sur ce projet ou consulter mon CV ?</p>
             <div class="contact-buttons">
-                <a href="mailto:zohairelouazzani47@gmail.com" class="contact-btn">Me contacter par e-mail</a>
+                <a href="mailto:zohaireouazzani47@gmail.com" class="contact-btn">Me contacter par e-mail</a>
                 <a href="tel:+330780659995" class="contact-btn phone-btn">📞 Appeler au téléphone</a>
             </div>
         </section>
@@ -396,6 +457,25 @@
     <footer>
         <p>&copy; 2026 - Portfolio Zohair EL OUAZZANI | Projet Chaîne de Production</p>
     </footer>
+
+    <!-- Script JavaScript pour le fonctionnement du menu burger -->
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        const navLinks = document.querySelectorAll('.nav-btn');
+
+        // Ouvrir / Fermer le menu au clic sur ☰
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // Fermer automatiquement le menu après avoir cliqué sur un lien
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
